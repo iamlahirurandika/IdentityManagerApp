@@ -59,6 +59,15 @@ namespace UserIdentity.Controllers
 
         }
 
+        //LogOff  
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogOff()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         //Add Errors 
         private void AddErrors(IdentityResult result)
         {
