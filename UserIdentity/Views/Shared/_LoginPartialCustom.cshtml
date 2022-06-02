@@ -1,8 +1,40 @@
-﻿<ul class="navbar-nav ms-auto">
-    <li class="nav-item">
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager 
+@inject UserManager<IdentityUser> UserManager
+
+
+@*
+    1. Need to check if user is singed in or not to change Register and Login buttons in navbar
+    2. We need to add a using statement for ASP.NETCore.Identity and then we can inject the Dependency Injection Services that we want. 
+        Services - SignInManager, UserManager 
+    3. Then we can use that to determine if a user is signed in or not 
+*@
+
+
+
+<ul class="navbar-nav ms-auto">
+     @if(SignInManager.IsSignedIn(User))
+    {
+        // If signed in display email and logout button 
+        <li class="nav-item">
+            <a class="nav-link" href="#">Hello @UserManager.GetUserName(User)</a>
+        </li>
+         <li class="nav-item">
+            <form id="logoutForm" method="post" asp-controller="Account" asp-action="LogOff" class="form-inline">
+                <button type="submit" class="btn nav-link">Logout</button>
+            </form>
+        </li>
+
+    }
+    else
+    {
+        //if not signed in display Register and Login button
+        <li class="nav-item">
         <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
-    </li>
-     <li class="nav-item">
-        <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
-    </li>
+        </li>
+         <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    }
+    
 </ul>
