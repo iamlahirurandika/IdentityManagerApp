@@ -1,5 +1,7 @@
 ﻿
 
+using UserIdentity.Models;
+
 namespace UserIdentity.Data
 {
     public class ApplicationDbContext : IdentityDbContext
@@ -8,5 +10,9 @@ namespace UserIdentity.Data
         {
 
         }
+
+        //Add new DbSet ApplicationUser
+        
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
     }
 }

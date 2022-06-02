@@ -1,7 +1,7 @@
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
 global using UserIdentity.Data;
-using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
