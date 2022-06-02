@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
 
 namespace UserIdentity.Controllers
 {
@@ -12,7 +12,9 @@ namespace UserIdentity.Controllers
         [HttpGet]
         public async Task<IActionResult> Register()
         {
-            return View(); 
+            //Return RegisterViewModel
+            RegisterViewModel registerViewModel = new RegisterViewModel(); 
+            return View(registerViewModel);  
         }
     }
 }
