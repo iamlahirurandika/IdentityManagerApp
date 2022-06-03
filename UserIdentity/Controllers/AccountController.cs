@@ -68,6 +68,42 @@ namespace UserIdentity.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //Login GET
+        [HttpGet]
+        public  IActionResult Login()
+        {
+            return View();
+        }
+
+        //Login POST
+        [HttpPost]
+        public async Task<IActionResult> Login(RegisterViewModel model)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            ////Populating new user object here
+            //var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name };
+            ////Create a user || Using the UserManageService Provided by ASP.NET
+            //var result = await _userManager.CreateAsync(user, model.Password);
+            //if (result.Succeeded)
+            //{
+            //    //This means the user is created 
+            //    //In order to sign in the user we need to use SignInManager || We are gonna use it using Dependency Injection 
+            //    await _signInManager.SignInAsync(user, isPersistent: false);
+            //    return RedirectToAction("Index", "Home");
+            //}
+            ////Creating a helper action method below to add errors 
+            //AddErrors(result);
+
+            ////Return back to view 
+            //return View(model);
+
+
+        }
+
+
         //Add Errors 
         private void AddErrors(IdentityResult result)
         {
