@@ -70,21 +70,27 @@ namespace UserIdentity.Controllers
 
         //Login GET
         [HttpGet]
-        public  IActionResult Login()
+        public  IActionResult Login(string? returnurl=null)
         {
+            ViewData["ReturnUrl"] = returnurl;
             return View();
         }
 
         //Login POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnurl = null)
         {
+            ViewData["ReturnUrl"] = returnurl; 
            if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure:false);
                 if(result.Succeeded)
                 {
+                    if (returnurl != null)
+                    {
+                        return Redirect(returnurl);
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 else
