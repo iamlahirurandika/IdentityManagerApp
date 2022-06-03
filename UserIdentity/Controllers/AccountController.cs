@@ -112,6 +112,21 @@ namespace UserIdentity.Controllers
 
         }
 
+        //ForgotPassword GET
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        //Forgot Password POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            // Based on what model(email) we retreive here we need to configure here a token and we need to send it to user
+            return View(model); 
+        }
+
 
         //Add Errors 
         private void AddErrors(IdentityResult result)
