@@ -77,29 +77,22 @@ namespace UserIdentity.Controllers
 
         //Login POST
         [HttpPost]
-        public async Task<IActionResult> Login(RegisterViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-            ////Populating new user object here
-            //var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name };
-            ////Create a user || Using the UserManageService Provided by ASP.NET
-            //var result = await _userManager.CreateAsync(user, model.Password);
-            //if (result.Succeeded)
-            //{
-            //    //This means the user is created 
-            //    //In order to sign in the user we need to use SignInManager || We are gonna use it using Dependency Injection 
-            //    await _signInManager.SignInAsync(user, isPersistent: false);
-            //    return RedirectToAction("Index", "Home");
-            //}
-            ////Creating a helper action method below to add errors 
-            //AddErrors(result);
-
-            ////Return back to view 
-            //return View(model);
-
+           if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure:false);
+                if(result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(String.Empty, "Invalid Login Attempt!"); 
+                }
+            }
+           return View(model);
 
         }
 
