@@ -90,7 +90,7 @@ namespace UserIdentity.Controllers
             ViewData["ReturnUrl"] = returnurl; 
            if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure:false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure:true);
                 if(result.Succeeded)
                 {
                     if (returnurl != null)
@@ -98,6 +98,10 @@ namespace UserIdentity.Controllers
                         return LocalRedirect(returnurl);
                     }
                     return RedirectToAction("Index", "Home");
+                }
+                else if(result.IsLockedOut)
+                {
+                    return View("Lockout");
                 }
                 else
                 {
